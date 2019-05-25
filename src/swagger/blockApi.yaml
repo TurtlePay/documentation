@@ -4,7 +4,7 @@ info:
     This document outlines the public API methods available using the TurtlePay
     Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC
     calls.
-  version: "0.0.6-oas3"
+  version: "0.0.9-oas3"
   title: TurtlePay Blockchain Cache API
   contact:
     email: turtlepay@protonmail.com
@@ -900,6 +900,11 @@ paths:
                       0606a15147159e3f01dd90aa78828cf8587caed36203cd764701b56eb6ff6fd8
                     - >-
                       1d61bf052ee2fa3720078ee01cf30e01ba305096bf3e3d3668fbc09bbeafa244
+                skipEmptyBlocks:
+                  type: boolean
+                  example: false
+                  default: false
+                  description: A flag that tells the cache to only return blocks with more than the coinbase (miner reward) transaction in them
         description: A syncronization request
   /getwalletsyncdata/preflight:
     post:
