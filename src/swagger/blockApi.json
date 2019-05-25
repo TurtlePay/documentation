@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC calls.",
-    "version": "0.0.9-oas3",
+    "version": "0.0.10-oas3",
     "title": "TurtlePay Blockchain Cache API",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -1284,6 +1284,26 @@
                     "status": {
                       "type": "string",
                       "example": "OK"
+                    },
+                    "synced": {
+                      "type": "boolean",
+                      "example": false,
+                      "description": "If this value is set, regardless of if we returned any data or not, then we are at the top of the chain and the topBlock property will also be set"
+                    },
+                    "topBlock": {
+                      "type": "object",
+                      "properties": {
+                        "height": {
+                          "type": "integer",
+                          "example": 1524670,
+                          "description": "The height of the top block we know about"
+                        },
+                        "hash": {
+                          "type": "string",
+                          "example": "d8dedec9dfeed514b3c0f5b49c3fb7df399dda4e65528a8b9bacec574cfb3fce",
+                          "description": "The hash of the top block we know about"
+                        }
+                      }
                     }
                   }
                 }
@@ -1323,11 +1343,11 @@
                       "1d61bf052ee2fa3720078ee01cf30e01ba305096bf3e3d3668fbc09bbeafa244"
                     ]
                   },
-                  "skipEmptyBlocks": {
+                  "skipCoinbaseTransactions": {
                     "type": "boolean",
                     "example": false,
                     "default": false,
-                    "description": "A flag that tells the cache to only return blocks with more than the coinbase (miner reward) transaction in them"
+                    "description": "A flag that tells the cache to only returns blocks with non-coinbase transactions and for blocks that contain user transactions the coinbase transaction is trimmed off of the block record"
                   }
                 }
               }
