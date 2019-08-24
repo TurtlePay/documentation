@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC calls.",
-    "version": "0.0.10-oas3",
+    "version": "0.0.11-oas3",
     "title": "TurtlePay Blockchain Cache API",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -310,6 +310,80 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reward/last": {
+      "get": {
+        "tags": [
+          "Chain/Cache"
+        ],
+        "summary": "Returns the last base block reward in TRTL",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 28259.55
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reward/next": {
+      "get": {
+        "tags": [
+          "Chain/Cache"
+        ],
+        "summary": "Returns the next base block reward in TRTL",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 28259.54
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "tags": [
+          "Chain/Cache"
+        ],
+        "summary": "Returns an 'ok' value indicating that the cache is alive",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
