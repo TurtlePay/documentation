@@ -758,6 +758,26 @@
           "Community Nodes"
         ],
         "summary": "Returns the list of available public nodes with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-nodes-json",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "max_fee",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false,
+            "description": "Do not return nodes with a fee higher than this value"
+          },
+          {
+            "in": "query",
+            "name": "min_version",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Do not return nodes that are not at least this version"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -789,6 +809,26 @@
           "Community Nodes"
         ],
         "summary": "Returns the list of available (have been online at least once) public nodes with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-nodes-json",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "max_fee",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false,
+            "description": "Do not return nodes with a fee higher than this value"
+          },
+          {
+            "in": "query",
+            "name": "min_version",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Do not return nodes that are not at least this version"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -820,6 +860,26 @@
           "Community Nodes"
         ],
         "summary": "Returns the list of online (as of last check) public nodes with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-nodes-json",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "max_fee",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false,
+            "description": "Do not return nodes with a fee higher than this value"
+          },
+          {
+            "in": "query",
+            "name": "min_version",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Do not return nodes that are not at least this version"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
