@@ -4,7 +4,7 @@ info:
     This document outlines the public API methods available using the TurtlePay
     Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC
     calls.
-  version: "0.0.11-oas3"
+  version: "0.0.12-oas3"
   title: TurtlePay Blockchain Cache API
   contact:
     email: turtlepay@protonmail.com
@@ -13,6 +13,7 @@ info:
     url: 'https://opensource.org/licenses/AGPL-3.0'
 tags:
   - name: Chain/Cache
+  - name: Community Nodes
   - name: Blocks
   - name: Transactions
   - name: Wallet Operations
@@ -497,6 +498,79 @@ paths:
                   type: string
                   example: >-
                     TRTLv1pacKFJk9QgSmzk2LJWn14JGmTKzReFLz1RgY3K9Ryn7783RDT2TretzfYdck5GMCGzXTuwKfePWQYViNs4avKpnUbrwfQ
+  /node/list:
+    get:
+      tags:
+        - Community Nodes
+      summary: Returns the list of available public nodes with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-nodes-json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nodes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NodeList'
+        '500':
+          description: Internal Server Error
+  /node/list/available:
+    get:
+      tags:
+        - Community Nodes
+      summary: Returns the list of available (have been online at least once) public nodes with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-nodes-json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nodes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NodeList'
+        '500':
+          description: Internal Server Error
+  /node/list/online:
+    get:
+      tags:
+        - Community Nodes
+      summary: Returns the list of online (as of last check) public nodes with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-nodes-json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nodes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NodeList'
+        '500':
+          description: Internal Server Error
+  /node/stats:
+    get:
+      tags:
+        - Community Nodes
+      summary: Returns extended monitoring information of the nodes including the last 20 online statuses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NodeStats'
+        '500':
+          description: Internal Server Error
   /transaction:
     post:
       tags:
@@ -1061,6 +1135,131 @@ servers:
   - url: 'https://blockapi.turtlepay.io/'
 components:
   schemas:
+    NodeList:
+      properties:
+        name:
+          type: string
+          example: TurtlePay BlockChain Cache - SSL
+          description: The name of the node
+        url:
+          type: string
+          example: blockapi.turtlepay.io
+          description: The hostname of the node
+        port:
+          type: integer
+          example: 443
+          description: The port number the node operates on
+        ssl:
+          type: boolean
+          example: true
+          description: Does the node support SSL?
+        cache:
+          type: boolean
+          example: true
+          description: Is the node an implementation of a blockchain cache?
+        fee:
+          type: object
+          properties:
+            address:
+              type: string
+              example: ""
+              description: The node fee address
+            amount:
+              type: integer
+              example: 0
+              description: The node fee amount
+        availability:
+          type: integer
+          example: 100
+          description: Percent of time over the last 20 polling cycles that the node was online
+        online:
+          type: boolean
+          example: true
+          description: Was the node online the last time we checked?
+        version:
+          type: string
+          example: 0.18.0
+          description: The version number reported by the node
+        timestamp:
+          type: integer
+          example: 1566862231998
+          description: The last time we checked this node (UTC)
+    NodeStats:
+      properties:
+        name:
+          type: string
+          example: TurtlePay BlockChain Cache - SSL
+          description: The name of the node
+        url:
+          type: string
+          example: blockapi.turtlepay.io
+          description: The hostname of the node
+        port:
+          type: integer
+          example: 443
+          description: The port number the node operates on
+        ssl:
+          type: boolean
+          example: true
+          description: Does the node support SSL?
+        cache:
+          type: boolean
+          example: true
+          description: Is the node an implementation of a blockchain cache?
+        fee:
+          type: object
+          properties:
+            address:
+              type: string
+              example: ""
+              description: The node fee address
+            amount:
+              type: integer
+              example: 0
+              description: The node fee amount
+        availability:
+          type: integer
+          example: 100
+          description: Percent of time over the last 20 polling cycles that the node was online
+        online:
+          type: boolean
+          example: true
+          description: Was the node online the last time we checked?
+        version:
+          type: string
+          example: 0.18.0
+          description: The version number reported by the node
+        timestamp:
+          type: integer
+          example: 1566862352135
+          description: The UTC timestamp of the last time this node was checked
+        height:
+          type: integer
+          example: 1791306
+          description: The last reported height of the node
+        connectionsIn:
+          type: integer
+          example: 31
+          description: The last reported number of connections in to the node
+        connectionsOut:
+          type: integer
+          example: 8
+          description: The last reported number of connections out from the node
+        history:
+          type: array
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/NodeHistory'
+    NodeHistory:
+      properties:
+        timestamp:
+          type: integer
+          example: 1566862352135
+          description: The UTC timestamp of the polling check
+        online:
+          type: boolean
+          example: true
+          description: The online status of the node at the time of the check
     Transaction:
       properties:
         tx:
