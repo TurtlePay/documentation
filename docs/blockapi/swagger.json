@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC calls.",
-    "version": "0.0.12-oas3",
+    "version": "0.0.16-oas3",
     "title": "TurtlePay Blockchain Cache API",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -15,6 +15,9 @@
   "tags": [
     {
       "name": "Chain/Cache"
+    },
+    {
+      "name": "Community Mining Pools"
     },
     {
       "name": "Community Nodes"
@@ -931,6 +934,125 @@
         }
       }
     },
+    "/pool/list": {
+      "get": {
+        "tags": [
+          "Community Mining Pools"
+        ],
+        "summary": "Returns the list of available known mining pools with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-pools-json",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pools": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PoolList"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pool/list/available": {
+      "get": {
+        "tags": [
+          "Community Mining Pools"
+        ],
+        "summary": "Returns the list of available (have been online at least once) known mining pools with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-pools-json",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pools": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PoolList"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pool/list/online": {
+      "get": {
+        "tags": [
+          "Community Mining Pools"
+        ],
+        "summary": "Returns the list of online (as of last check) known mining pools with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-pools-json",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pools": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PoolList"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/pool/stats": {
+      "get": {
+        "tags": [
+          "Community Mining Pools"
+        ],
+        "summary": "Returns extended monitoring information of the known mining pools including the last 20 online statuses",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PoolStats"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/transaction": {
       "post": {
         "tags": [
@@ -1748,6 +1870,175 @@
   ],
   "components": {
     "schemas": {
+      "PoolList": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "AtPool.party",
+            "description": "The name of the mining pool"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://turtle.atpool.party",
+            "description": "The URL of the pool website"
+          },
+          "api": {
+            "type": "string",
+            "example": "https://turtle-eu.atpool.party:8117/",
+            "description": "The base URL of the mining pool API"
+          },
+          "type": {
+            "type": "string",
+            "example": "forknote",
+            "description": "The mining pool type (package)"
+          },
+          "miningAddress": {
+            "type": "string",
+            "example": "geo.atpool.party",
+            "description": "The mining pool stratum server address"
+          },
+          "mergedMining": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the mining pool supports merged mining"
+          },
+          "mergedMiningIsParentChain": {
+            "type": "boolean",
+            "example": false,
+            "description": "If merged mining is activated, defines whether it is done as the parent chain"
+          },
+          "fee": {
+            "type": "number",
+            "example": 0.1,
+            "description": "The mining pool percentage feel (ex. 0.1%)"
+          },
+          "minPayout": {
+            "type": "integer",
+            "example": 10000,
+            "description": "The minimum payout amount to miners in atomic units"
+          },
+          "timestamp": {
+            "type": "integer",
+            "example": 1567103044,
+            "description": "The last time we checked this mining pool (UTC)"
+          },
+          "availability": {
+            "type": "integer",
+            "example": 100,
+            "description": "Percent of time over the last 20 polling cycles that the pool was online"
+          },
+          "online": {
+            "type": "boolean",
+            "example": true,
+            "description": "Was the mining pool online the last time we checked?"
+          }
+        }
+      },
+      "PoolStats": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "AtPool.party",
+            "description": "The name of the mining pool"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://turtle.atpool.party",
+            "description": "The URL of the pool website"
+          },
+          "api": {
+            "type": "string",
+            "example": "https://turtle-eu.atpool.party:8117/",
+            "description": "The base URL of the mining pool API"
+          },
+          "type": {
+            "type": "string",
+            "example": "forknote",
+            "description": "The mining pool type (package)"
+          },
+          "miningAddress": {
+            "type": "string",
+            "example": "geo.atpool.party",
+            "description": "The mining pool stratum server address"
+          },
+          "mergedMining": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the mining pool supports merged mining"
+          },
+          "mergedMiningIsParentChain": {
+            "type": "boolean",
+            "example": false,
+            "description": "If merged mining is activated, defines whether it is done as the parent chain"
+          },
+          "fee": {
+            "type": "number",
+            "example": 0.1,
+            "description": "The mining pool percentage feel (ex. 0.1%)"
+          },
+          "minPayout": {
+            "type": "integer",
+            "example": 10000,
+            "description": "The minimum payout amount to miners in atomic units"
+          },
+          "timestamp": {
+            "type": "integer",
+            "example": 1567103044,
+            "description": "The last time we checked this mining pool (UTC)"
+          },
+          "availability": {
+            "type": "integer",
+            "example": 100,
+            "description": "Percent of time over the last 20 polling cycles that the pool was online"
+          },
+          "online": {
+            "type": "boolean",
+            "example": true,
+            "description": "Was the mining pool online the last time we checked?"
+          },
+          "height": {
+            "type": "integer",
+            "example": 1799240,
+            "description": "The block height of the mining pool the last time we checked"
+          },
+          "hashrate": {
+            "type": "integer",
+            "example": 318546,
+            "description": "The hashrate of the mining pool the last time we checked"
+          },
+          "miners": {
+            "type": "integer",
+            "example": 13,
+            "description": "The number of miners using the mining pool the last time we checked"
+          },
+          "lastBlock": {
+            "type": "integer",
+            "example": 1567093663,
+            "description": "The timestamp of when the mining pool last found a block (UTC)"
+          },
+          "history": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "$ref": "#/components/schemas/PoolHistory"
+            }
+          }
+        }
+      },
+      "PoolHistory": {
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "example": 1567103044,
+            "description": "The UTC timestamp of the polling check"
+          },
+          "online": {
+            "type": "boolean",
+            "example": true,
+            "description": "The online status of the mining pool at the time of the check"
+          }
+        }
+      },
       "NodeList": {
         "properties": {
           "name": {
@@ -1807,7 +2098,7 @@
           },
           "timestamp": {
             "type": "integer",
-            "example": 1566862231998,
+            "example": 1567103464,
             "description": "The last time we checked this node (UTC)"
           }
         }
@@ -1871,7 +2162,7 @@
           },
           "timestamp": {
             "type": "integer",
-            "example": 1566862352135,
+            "example": 1567103464,
             "description": "The UTC timestamp of the last time this node was checked"
           },
           "height": {
@@ -1902,7 +2193,7 @@
         "properties": {
           "timestamp": {
             "type": "integer",
-            "example": 1566862352135,
+            "example": 1567103464,
             "description": "The UTC timestamp of the polling check"
           },
           "online": {
