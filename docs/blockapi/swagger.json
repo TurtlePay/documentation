@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC calls.",
-    "version": "0.0.16-oas3",
+    "version": "0.0.17-oas3",
     "title": "TurtlePay Blockchain Cache API",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -2179,6 +2179,19 @@
             "type": "integer",
             "example": 8,
             "description": "The last reported number of connections out from the node"
+          },
+          "difficulty": {
+            "type": "integer",
+            "example": 10026186855,
+            "description": "The last reported network difficulty from the node"
+          },
+          "hashrate": {
+            "example": 334206228,
+            "description": "The last reported network hashrate from the node"
+          },
+          "txPoolSize": {
+            "example": 0,
+            "description": "The last reported transaction pool size at the node"
           },
           "history": {
             "type": "array",
