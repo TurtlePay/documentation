@@ -703,6 +703,10 @@ paths:
                   status:
                     type: string
                     example: OK
+                  error:
+                    type: string
+                    example: Transaction contains an input which has already been spent
+                    description: If the transaction was rejected by the underlying node(s), this property contains the reason supplied by the node(s)
         '400':
           description: Bad Request
         '500':
@@ -1226,6 +1230,10 @@ paths:
                   status:
                     type: string
                     example: OK
+                  error:
+                    type: string
+                    example: Transaction contains an input which has already been spent
+                    description: If the transaction was rejected by the underlying node(s), this property contains the reason supplied by the node(s)
         '400':
           description: Bad Request
         '500':
