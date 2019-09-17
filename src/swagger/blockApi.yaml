@@ -298,6 +298,8 @@ paths:
                     example: Wrong block blob
         '500':
           description: Internal Server Error
+        '504':
+          description: The attempt to submit the block to the network timed out. The request may have completed successfully. Please check for the existence of the block before assuming whether the request succeeded or failed.
       requestBody:
         content:
           application/json:
@@ -482,6 +484,8 @@ paths:
                     example: Failed to parse wallet address
         '500':
           description: Internal Server Error
+        '504':
+          description: The attempt to relay this request to a daemon timed out.
       requestBody:
         content:
           application/json:
@@ -711,6 +715,8 @@ paths:
           description: Bad Request
         '500':
           description: Internal Server Error
+        '504':
+          description: The attempt to relay the transaction to the network timed out. This request may have completed successfully or it may have failed. Please check for the transaction in the transaction pool or in a block before assuming that the transaction failed.
       requestBody:
         content:
           application/json:
@@ -1238,6 +1244,8 @@ paths:
           description: Bad Request
         '500':
           description: Internal Server Error
+        '504':
+          description: The attempt to relay the transaction to the network timed out. This request may have completed successfully or it may have failed. Please check for the transaction in the transaction pool or in a block before assuming that the transaction failed.
       requestBody:
         content:
           application/json:
