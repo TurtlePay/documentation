@@ -1175,6 +1175,12 @@ paths:
           content:
             application/json:
               schema:
+                required:
+                  - height
+                  - blockCount
+                  - blockHashes
+                  - status
+                  - synced
                 type: object
                 properties:
                   height:
@@ -1186,9 +1192,34 @@ paths:
                     description: How many blocks to sync remaining there are
                     maximum: 100
                     example: 5
+                  blockHashes:
+                    description: The block hashes up to blockCount that would be returned
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - 4684b2775824618b2a8954ed77618e225bbf2adadade446f70b1512d9ac580fe
+                      - 3509d61bb8d897091c824270e2bfc0136e1cb82d7814ba959cb6cb570f92dc0f
                   status:
                     type: string
                     example: OK
+                  synced:
+                    description: Whether the request is synced to the top of the chain
+                    type: boolean
+                    example: false
+                  topBlock:
+                    description: Describes the top block in the chain if synced is true
+                    type: object
+                    properties:
+                      height:
+                        type: integer
+                        description: The height of the top block
+                        example: 1887377
+                      hash:
+                        type: string
+                        description: The hash of the top block
+                        example: 2bd215909efbcfc90d6572f8dce44b16317eab91583dac2d3e20313d0d8541be
+                    
         '400':
           description: Bad Request
         '500':
