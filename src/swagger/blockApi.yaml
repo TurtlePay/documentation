@@ -80,6 +80,27 @@ paths:
                       example: 1
         '500':
           description: Internal Server Error
+  /checkpointsIPFSHash:
+    get:
+      tags:
+        - Chain/Cache
+      summary: Returns the current checkpoints IPFS hash
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hash: 
+                    type: string
+                    example: QmZ4B2M9DCfs2ycDCCRcHgBd5iAAbYfj4e4d1q4auCKucX
+                    description: The IPFS content ID (hash)
+        '404':
+          description: Could not locate the IPFS hash in DNS
+        '500':
+          description: Internal Server Error
   /fee:
     get:
       tags:
