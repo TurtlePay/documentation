@@ -800,26 +800,6 @@
           "Community Nodes"
         ],
         "summary": "Returns the list of available public nodes with extended information. This is a drop-in replacement for https://github.com/turtlecoin/turtlecoin-nodes-json",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "max_fee",
-            "schema": {
-              "type": "integer"
-            },
-            "required": false,
-            "description": "Do not return nodes with a fee higher than this value"
-          },
-          {
-            "in": "query",
-            "name": "min_version",
-            "schema": {
-              "type": "string"
-            },
-            "required": false,
-            "description": "Do not return nodes that are not at least this version"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -831,7 +811,7 @@
                     "nodes": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/NodeList"
+                        "$ref": "#/components/schemas/NodeListBasic"
                       }
                     }
                   }
@@ -990,7 +970,7 @@
                     "pools": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/PoolList"
+                        "$ref": "#/components/schemas/PoolListBasic"
                       }
                     }
                   }
@@ -1964,6 +1944,45 @@
   ],
   "components": {
     "schemas": {
+      "PoolListBasic": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "AtPool.party",
+            "description": "The name of the mining pool"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://turtle.atpool.party",
+            "description": "The URL of the pool website"
+          },
+          "api": {
+            "type": "string",
+            "example": "https://turtle-eu.atpool.party:8117/",
+            "description": "The base URL of the mining pool API"
+          },
+          "type": {
+            "type": "string",
+            "example": "forknote",
+            "description": "The mining pool type (package)"
+          },
+          "miningAddress": {
+            "type": "string",
+            "example": "geo.atpool.party",
+            "description": "The mining pool stratum server address"
+          },
+          "mergedMining": {
+            "type": "boolean",
+            "example": false,
+            "description": "Whether the mining pool supports merged mining"
+          },
+          "mergedMiningIsParentChain": {
+            "type": "boolean",
+            "example": false,
+            "description": "If merged mining is activated, defines whether it is done as the parent chain"
+          }
+        }
+      },
       "PoolList": {
         "properties": {
           "name": {
@@ -2130,6 +2149,35 @@
             "type": "boolean",
             "example": true,
             "description": "The online status of the mining pool at the time of the check"
+          }
+        }
+      },
+      "NodeListBasic": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "TurtlePay BlockChain Cache - SSL",
+            "description": "The name of the node"
+          },
+          "url": {
+            "type": "string",
+            "example": "blockapi.turtlepay.io",
+            "description": "The hostname of the node"
+          },
+          "port": {
+            "type": "integer",
+            "example": 443,
+            "description": "The port number the node operates on"
+          },
+          "ssl": {
+            "type": "boolean",
+            "example": true,
+            "description": "Does the node support SSL?"
+          },
+          "cache": {
+            "type": "boolean",
+            "example": true,
+            "description": "Is the node an implementation of a blockchain cache?"
           }
         }
       },
