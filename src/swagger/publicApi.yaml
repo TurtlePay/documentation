@@ -4,7 +4,7 @@ info:
     This document outlines the public API methods available using the TurtlePay
     platform for creating and completing payment requests on the TurtleCoin
     network.
-  version: "0.0.7-oas3"
+  version: "0.1.0-oas3"
   title: TurtlePay Public API Interface
   contact:
     email: turtlepay@protonmail.com
@@ -32,7 +32,11 @@ paths:
                     type: string
                     description: The address to provide the user to send funds to
                     example: >-
-                      TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                      TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
+                  paymentId:
+                    type: string
+                    description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
+                    example: "376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63"
                   atomicAmount:
                     type: number
                     description: >-
@@ -111,8 +115,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 100
@@ -150,8 +158,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 102
@@ -197,8 +209,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 200
@@ -217,41 +233,21 @@ paths:
                             userDefined:
                               type: object
                               description: Any additional information supplied in the creation of the request
-                        txnHash:
-                          type: string
-                          example: 6219af887d59f796862258fcc4712db076cefbd3f41ad52ad753a45029414f99
-                          description: The transaction hash for the transaction that sends the funds to the requested wallet
-                        txnPrivateKey:
-                          type: string
-                          example: 1213a7d8d37dc01e59ec872f438e0c63ff48cf388ab29dbd6d4b498c7e831e05
-                          description: The transaction private key for the transaction that sends the funds to the requested wallet
                         amountReceived:
                               type: number
                               example: 100
                               description: The amount of funds received
-                        amountSent:
-                          type: number
-                          example: 90
-                          description: The amount of funds sent on to the requestor (amount received minus network transaction fee)
-                        networkFee:
-                          type: number
-                          example: 10
-                          description: The network fee paid for sending the funds to the requestor
                         amount:
                           type: number
                           example: 90
                           description: The amount received into the temporary wallet created for this request
-                        keys:
-                          type: object
-                          properties:
-                            privateSpendKey:
-                              type: string
-                              example: "886e03f06780964fd1e625b51382e571fa141c86f9ea6128f363fb217fdfaf0b"
-                              description: The private spend key of the one-time use wallet
-                            privateViewKey:
-                              type: string
-                              example: "80ec1f056c95f0dacebb95ff5ff82eafde9b89380a4feeecdecc80e70789ce0d"
-                              description: The private view key of the one-time use wallet
+                        transactions:
+                          type: array
+                          description: A list of transaction hashes containing funds for this request
+                          items:
+                            type: string
+                            example:
+                              - bdb052ef739064650239e53b34572a7f5d6103a7f68283d3218d306c4a77400a
               responses:
                 '200':
                   description: OK
@@ -267,8 +263,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 402
@@ -302,8 +302,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 408
@@ -322,17 +326,6 @@ paths:
                             userDefined:
                               type: object
                               description: Any additional information supplied in the creation of the request
-                        keys:
-                          type: object
-                          properties:
-                            privateSpendKey:
-                              type: string
-                              example: "886e03f06780964fd1e625b51382e571fa141c86f9ea6128f363fb217fdfaf0b"
-                              description: The private spend key of the one-time use wallet
-                            privateViewKey:
-                              type: string
-                              example: "80ec1f056c95f0dacebb95ff5ff82eafde9b89380a4feeecdecc80e70789ce0d"
-                              description: The private view key of the one-time use wallet
               responses:
                 200:
                   description: OK
@@ -364,13 +357,18 @@ paths:
               type: object
               required:
                 - address
+                - privateViewKey
                 - amount
               properties:
                 address:
                   type: string
                   description: The address that we need to send the funds of the transaction to once they are sent to us
                   example: >-
-                    TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g
+                    TRTLuxfRv3q1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMjYUpKu
+                privateViewKey:
+                  type: string
+                  description: The Private View Key of the wallet address above (view only access)
+                  example: "418626af5c4941a6860d5e8bff2ec4a5bfb123323f194c4718bfe6d45903aa08"
                 amount:
                   type: number
                   description: The amount requested in atomic units
@@ -408,7 +406,11 @@ paths:
                     type: string
                     description: The address to provide the user to send funds to
                     example: >-
-                      TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                      TRTLuyzE8L1HbJ8LWVQRr6J6MXV8JzWtw9uGQABuqgrCA6ZNGFpNAgKAQFQGoU9sUaAQQb6SQdDWt9GCoDFUxxBrHbHnWNpQFc4LYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWoyifd2
+                  paymentId:
+                    type: string
+                    description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
+                    example: b46bc1a8fff7f0020b5057dd643a6ab3319d843850c788a4d90e1ebdb7b9c19f
                   atomicAmount:
                     type: number
                     description: >-
@@ -439,7 +441,7 @@ paths:
                       A link to a QR code image that contains the required
                       payment information to complete this request
                     example: >-
-                      https://chart.googleapis.com/chart?cht=qr&chs=256x256&chl=turtlecoin://TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP?amount=100
+                      https://chart.googleapis.com/chart?cht=qr&chs=256x256&chl=turtlecoin://TRTLuyzE8L1HbJ8LWVQRr6J6MXV8JzWtw9uGQABuqgrCA6ZNGFpNAgKAQFQGoU9sUaAQQb6SQdDWt9GCoDFUxxBrHbHnWNpQFc4LYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWoyifd2?amount=100&name=string
                   userDefined:
                     type: object
                     description: >-
@@ -463,6 +465,7 @@ paths:
               type: object
               required:
                 - address
+                - privateViewKey
                 - amount
               properties:
                 address:
@@ -470,6 +473,10 @@ paths:
                   description: The address that we need to send the funds of the transaction to once they are sent to us
                   example: >-
                     TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g
+                privateViewKey:
+                  type: string
+                  description: The Private View Key of the wallet address above (view only access)
+                  example: "418626af5c4941a6860d5e8bff2ec4a5bfb123323f194c4718bfe6d45903aa08"
                 amount:
                   type: number
                   description: The amount requested in atomic units
@@ -503,8 +510,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 100
@@ -542,8 +553,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 102
@@ -589,8 +604,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 200
@@ -609,41 +628,21 @@ paths:
                             userDefined:
                               type: object
                               description: Any additional information supplied in the creation of the request
-                        txnHash:
-                          type: string
-                          example: 6219af887d59f796862258fcc4712db076cefbd3f41ad52ad753a45029414f99
-                          description: The transaction hash for the transaction that sends the funds to the requested wallet
-                        txnPrivateKey:
-                          type: string
-                          example: 1213a7d8d37dc01e59ec872f438e0c63ff48cf388ab29dbd6d4b498c7e831e05
-                          description: The transaction private key for the transaction that sends the funds to the requested wallet
                         amountReceived:
                               type: number
                               example: 100
                               description: The amount of funds received
-                        amountSent:
-                          type: number
-                          example: 90
-                          description: The amount of funds sent on to the requestor (amount received minus network transaction fee)
-                        networkFee:
-                          type: number
-                          example: 10
-                          description: The network fee paid for sending the funds to the requestor
                         amount:
                           type: number
                           example: 90
                           description: The amount received into the temporary wallet created for this request
-                        keys:
-                          type: object
-                          properties:
-                            privateSpendKey:
-                              type: string
-                              example: "886e03f06780964fd1e625b51382e571fa141c86f9ea6128f363fb217fdfaf0b"
-                              description: The private spend key of the one-time use wallet
-                            privateViewKey:
-                              type: string
-                              example: "80ec1f056c95f0dacebb95ff5ff82eafde9b89380a4feeecdecc80e70789ce0d"
-                              description: The private view key of the one-time use wallet
+                        transactions:
+                          type: array
+                          description: A list of transaction hashes containing funds for this request
+                          items:
+                            type: string
+                            example:
+                              - bdb052ef739064650239e53b34572a7f5d6103a7f68283d3218d306c4a77400a
               responses:
                 '200':
                   description: OK
@@ -659,8 +658,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 402
@@ -694,8 +697,12 @@ paths:
                       properties:
                         address:
                           type: string
-                          example: TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP
+                          example: TRTLuxnZiWkAEhvAoGSkNEHG3aKS5db1WHnoxarheb4M9jLArMU59y2HxWzuyvsXCDHvvfk7c8dZSAZquLJiyv5f96P9kTcj1BM1mUMQf5KdydAh7ewz1GrHsJVpYiWkonuRUCRWSuWUMkfL6p7a7g3Eq5N1FEctyxhv41S3cwC72caRfaAhMipghbt
                           description: The address where the user should send funds
+                        paymentId:
+                          type: string
+                          example: 376178ab0113a5ae930eda9e9de2419ede7aead3e8fbe7b7e65191de15f20b63
+                          description: The payment ID the user must use (or the Integreated address in the sendToAddress field)
                         status:
                           type: number
                           example: 408
@@ -714,17 +721,6 @@ paths:
                             userDefined:
                               type: object
                               description: Any additional information supplied in the creation of the request
-                        keys:
-                          type: object
-                          properties:
-                            privateSpendKey:
-                              type: string
-                              example: "886e03f06780964fd1e625b51382e571fa141c86f9ea6128f363fb217fdfaf0b"
-                              description: The private spend key of the one-time use wallet
-                            privateViewKey:
-                              type: string
-                              example: "80ec1f056c95f0dacebb95ff5ff82eafde9b89380a4feeecdecc80e70789ce0d"
-                              description: The private view key of the one-time use wallet
               responses:
                 200:
                   description: OK
@@ -733,4 +729,4 @@ externalDocs:
   description: TurtlePay GitHub Organization
   url: 'https://github.com/TurtlePay'
 servers:
-  - url: 'https://api.turtlepay.io/v1'
+  - url: 'https://api.turtlepay.io/v2'
