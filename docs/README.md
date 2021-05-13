@@ -1,3 +1,3 @@
 # TurtlePay® Public Website
 
-###### (c) 2018-2019 TurtlePay® Development Team
+###### (c) 2018-2021 TurtlePay® Development Team
